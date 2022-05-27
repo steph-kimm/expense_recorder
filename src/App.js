@@ -10,6 +10,9 @@ import SignUp from './components/auth/SignUp'
 import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
+import CreateExpense from './components/expenses/CreateExpense'
+import UpdateExpense from './components/expenses/UpdateExpense'
+import IndexOwnedExpense from './components/expenses/IndexOwnedExpense'
 
 class App extends Component {
   constructor (props) {
@@ -86,6 +89,28 @@ class App extends Component {
               <ChangePassword msgAlert={this.msgAlert} user={user} />
             )}
           />
+          {/* create */}
+          <AuthenticatedRoute
+            user={user}
+            path='/create-expense'
+            render={() => <CreateExpense msgAlert={this.msgAlert} user={user} />}
+          />
+          {/* read */}
+          <AuthenticatedRoute
+            user={user}
+            exact
+            path='/myexpenses'
+            render={() => (
+              <IndexOwnedExpense msgAlert={this.msgAlert} user={user} />
+            )}
+          />
+          {/* update */}
+          <AuthenticatedRoute
+            user={user}
+            path='/expenses/:id/edit'
+            render={() => <UpdateExpense msgAlert={this.msgAlert} user={user} />}
+          />
+          {/* delete */}
         </main>
       </Fragment>
     )
