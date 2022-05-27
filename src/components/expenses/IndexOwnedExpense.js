@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { indexOwnedExpenses } from '../../api/expense'
-// import { deleteExpense, indexOwnedExpenses } from '../../api/expense'
+// import { indexOwnedExpenses } from '../../api/expense'
+import { deleteExpense, indexOwnedExpenses } from '../../api/expense'
 // import { Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
-
+import { withRouter } from 'react-router-dom'
 class IndexOwnedExpense extends Component {
   constructor (props) {
     super(props)
@@ -45,31 +45,33 @@ class IndexOwnedExpense extends Component {
 
   handleDelete = (id) => {
     // const { match } = this.props
-    console.log('props:' + id)
-    console.log(this.props)
-    // const { match, user, msgAlert, history } = this.props
-    // console.log(match)
-    // deleteExpense(match.params.id, user)
-    //   .then(() => history.push('/expenses'))
-    //   .then(() => {
-    //     msgAlert({
-    //       heading: 'Deleted expense successfully',
-    //       message: 'Expense deleted',
-    //       variant: 'success'
-    //     })
-    //   })
-    //   .catch((error) => {
-    //     msgAlert({
-    //       heading: 'Failed to delete expense!',
-    //       message: 'Delete error: ' + error.message,
-    //       variant: 'danger'
-    //     })
-    //   })
+    // console.log('i am deleting for some reason')
+    // console.log('props:' + id)
+    // console.log(this.props)
+    // const { match, user, msgAlert } = this.props
+    const { match, user, msgAlert, history } = this.props
+    console.log(match)
+    deleteExpense(id, user)
+      // make it reload over here!
+      .then(() => history.push('/expenses'))
+      .then(() => {
+        msgAlert({
+          heading: 'Deleted expense successfully',
+          message: 'Expense deleted',
+          variant: 'success'
+        })
+      })
+      .catch((error) => {
+        msgAlert({
+          heading: 'Failed to delete expense!',
+          message: 'Delete error: ' + error.message,
+          variant: 'danger'
+        })
+      })
   }
 
   render () {
     const { expenses } = this.state
-    console.log(expenses)
 
     if (expenses === null) {
       return 'Loading...'
@@ -79,15 +81,22 @@ class IndexOwnedExpense extends Component {
     if (expenses.length === 0) {
       expenseJSX = 'No expenses, create some'
     } else {
+      console.log('expenses: ' + expenses[0]._id)
       // edit here for showing differently
+      const { history } = this.props
+      // console.log('match.params.id' + match.params.id)
       expenseJSX = expenses.map((expense) => (
         <li key={expense._id}>
           {/* <Link to={`/expenses/${expense._id}`}>{expense.title}</Link> */}
           <h2>{expense.title}</h2>
           <h6>${expense.amount}</h6>
           <p>{expense.text}</p>
-          <Button onClick={this.handleDelete(expense._id)}>
-              Delete Expense
+          <Button onClick={() => { this.handleDelete(expense._id) }}>
+            Delete
+          </Button>
+          <Button
+            onClick={() => history.push(`/expenses/${expense._id}/edit`)}>
+            Update
           </Button>
         </li>
       ))
@@ -98,6 +107,7 @@ class IndexOwnedExpense extends Component {
       console.log('amount:' + expenses[i].amount)
       total += expenses[i].amount
     }
+
     return (
       <>
         {console.log(total)}
@@ -108,4 +118,4 @@ class IndexOwnedExpense extends Component {
   }
 }
 
-export default IndexOwnedExpense
+export default withRouter(IndexOwnedExpense)

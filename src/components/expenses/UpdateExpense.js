@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { showExpense, updateExpense } from '../../api/expense'
+import { updateExpense } from '../../api/expense'
+// import { showExpense, updateExpense } from '../../api/expense'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { withRouter } from 'react-router-dom'
@@ -17,33 +18,33 @@ class UpdateExpense extends Component {
   }
 
   componentDidMount () {
-    const { match, user, msgAlert } = this.props
+    // const { match, user, msgAlert } = this.props
 
-    showExpense(match.params.id, user)
-      .then((res) => console.log(res.data.expense))
-      .then((res) =>
-        this.setState({
-          title: res.data.expense.title,
-          amount: res.data.expense.amount,
-          text: res.data.expense.text,
-          date: res.data.expense.date
-        })
-      )
+    // showExpense(match.params.id, user)
+    //   .then((res) => console.log(res.data.expense))
+    //   .then((res) =>
+    //     this.setState({
+    //       title: res.data.expense.title,
+    //       amount: res.data.expense.amount,
+    //       text: res.data.expense.text,
+    //       date: res.data.expense.date
+    //     })
+    //   )
 
-      .then(() => {
-        msgAlert({
-          heading: 'Show expense success',
-          message: 'Woot success',
-          variant: 'success'
-        })
-      })
-      .catch((error) => {
-        msgAlert({
-          heading: 'Show failed',
-          message: 'Error message: ' + error.message,
-          variant: 'danger'
-        })
-      })
+    //   .then(() => {
+    //     msgAlert({
+    //       heading: 'Show expense success',
+    //       message: 'Woot success',
+    //       variant: 'success'
+    //     })
+    //   })
+    //   .catch((error) => {
+    //     msgAlert({
+    //       heading: 'Show failed',
+    //       message: 'Error message: ' + error.message,
+    //       variant: 'danger'
+    //     })
+    //   })
   }
 
   handleChange = (event) =>
