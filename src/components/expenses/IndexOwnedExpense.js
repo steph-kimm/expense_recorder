@@ -18,10 +18,10 @@ class IndexOwnedExpense extends Component {
 
     indexOwnedExpenses(user)
       .then((res) => {
-        console.log('expenses:')
-        console.log(res.data.expenses)
-        console.log('user:')
-        console.log(user._id)
+        // console.log('expenses:')
+        // console.log(res.data.expenses)
+        // console.log('user:')
+        // console.log(user._id)
         return res.data.expenses.filter((expense) =>
           expense.owner === user._id
         )
@@ -49,8 +49,9 @@ class IndexOwnedExpense extends Component {
     // console.log('props:' + id)
     // console.log(this.props)
     // const { match, user, msgAlert } = this.props
-    const { match, user, msgAlert, history } = this.props
-    console.log(match)
+    // const { match, user, msgAlert, history } = this.props
+    const { user, msgAlert, history } = this.props
+    // console.log(match)
     deleteExpense(id, user)
       // make it reload over here!
       .then(() => history.push('/expenses'))
@@ -81,7 +82,7 @@ class IndexOwnedExpense extends Component {
     if (expenses.length === 0) {
       expenseJSX = 'No expenses, create some'
     } else {
-      console.log('expenses: ' + expenses[0]._id)
+      // console.log('expenses: ' + expenses[0]._id)
       // edit here for showing differently
       const { history } = this.props
       // console.log('match.params.id' + match.params.id)
@@ -102,15 +103,15 @@ class IndexOwnedExpense extends Component {
       ))
     }
     let total = 0
-    console.log('length' + expenses.length)
+    // console.log('length' + expenses.length)
     for (let i = 0; i < expenses.length; i++) {
-      console.log('amount:' + expenses[i].amount)
+      // console.log('amount:' + expenses[i].amount)
       total += expenses[i].amount
     }
 
     return (
       <>
-        {console.log(total)}
+        {/* {console.log(total)} */}
         <h3>My Expenses: ${total}</h3>
         <ul>{expenseJSX}</ul>
       </>

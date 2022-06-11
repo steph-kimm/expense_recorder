@@ -58,7 +58,16 @@ class App extends Component {
             deleteAlert={this.deleteAlert}
           />
         ))}
+
 	      <main className='container'>
+          <Route
+            path='/home'
+            render={() => (
+              <h2>Hello, welcome to the expense tracker! Here you can
+              log all of your expenses and come back to it to see
+               how much you have spent!</h2>
+            )}
+          />
 	        <Route
             path='/sign-up'
             render={() => (
